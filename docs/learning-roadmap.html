@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度学习实战路线图</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --card: #f8f9fa;
+    --border: #e2e5e9;
+    --text: #2c3e50;
+    --text-muted: #6b7280;
+    --accent1: #3b82f6;
+    --accent2: #8b5cf6;
+    --accent3: #ec4899;
+    --accent4: #10b981;
+    --accent5: #f59e0b;
+    --code-bg: #f1f5f9;
+    --tag-bg: #e0e7ff;
+    --tag-text: #4338ca;
+    --divider: #e5e7eb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #f0f2f5;
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 50px 20px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 40px;
+  }
+  .header h1 { font-size: 2.2em; margin-bottom: 8px; }
+  .header p { font-size: 1.1em; opacity: 0.9; }
+
+  /* Phase Cards */
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .phase-card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--border);
+  }
+  .phase-card.phase-1 { border-top-color: var(--accent1); }
+  .phase-card.phase-2 { border-top-color: var(--accent2); }
+  .phase-card.phase-3 { border-top-color: var(--accent4); }
+
+  .phase-number {
+    display: inline-block;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    text-align: center; line-height: 32px;
+    color: white; font-weight: 700; font-size: 0.9em;
+    margin-bottom: 12px;
+  }
+  .phase-1 .phase-number { background: var(--accent1); }
+  .phase-2 .phase-number { background: var(--accent2); }
+  .phase-3 .phase-number { background: var(--accent4); }
+
+  .phase-card h2 { font-size: 1.1em; margin-bottom: 16px; color: var(--text); }
+
+  .phase-item {
+    font-size: 0.9em;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--divider);
+    color: var(--text-muted);
+  }
+  .phase-item:last-child { border-bottom: none; }
+  .phase-item strong { color: var(--text); }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 0.75em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+
+  /* Knowledge Tree */
+  .section-title {
+    font-size: 1.4em;
+    margin: 40px 0 20px;
+    color: var(--text);
+    padding-left: 4px;
+  }
+
+  .knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .knowledge-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .knowledge-card h3 {
+    font-size: 0.95em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .knowledge-card h3 .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-blue { background: var(--accent1); }
+  .dot-purple { background: var(--accent2); }
+  .dot-pink { background: var(--accent3); }
+  .dot-green { background: var(--accent4); }
+  .dot-orange { background: var(--accent5); }
+
+  .knowledge-card ul {
+    list-style: none;
+    font-size: 0.88em;
+  }
+  .knowledge-card li {
+    padding: 4px 0;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--divider);
+  }
+  .knowledge-card li:last-child { border-bottom: none; }
+  .knowledge-card li::before {
+    content: "→ ";
+    color: var(--accent1);
+    font-weight: 700;
+  }
+
+  /* Project Cards */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .project-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+  }
+  .project-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+  .project-card .emoji { font-size: 2em; margin-bottom: 8px; }
+  .project-card h3 { font-size: 1em; margin-bottom: 6px; }
+  .project-card p { font-size: 0.85em; color: var(--text-muted); margin-bottom: 12px; }
+
+  .project-card .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .badge {
+    font-size: 0.72em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+  .badge.highlight {
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 600;
+  }
+
+  /* Resources */
+  .resources {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    margin-bottom: 40px;
+  }
+  .resources h2 { font-size: 1.1em; margin-bottom: 16px; }
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .resource-item {
+    font-size: 0.9em;
+    padding: 10px 14px;
+    background: var(--code-bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent1);
+  }
+  .resource-item a { color: var(--accent1); text-decoration: none; }
+  .resource-item a:hover { text-decoration: underline; }
+  .resource-item .note { font-size: 0.8em; color: var(--text-muted); }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--divider);
+  }
+
+  .timeline-item {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+
+  .timeline-content {
+    width: 44%;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent2);
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--accent2);
+    z-index: 1;
+  }
+  .timeline-content .week { font-size: 0.78em; color: var(--accent2); font-weight: 600; }
+  .timeline-content h4 { font-size: 0.95em; margin: 4px 0; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+    font-size: 0.85em;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .phases, .knowledge-grid, .projects {
+      grid-template-columns: 1fr;
+    }
+    .resource-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>深度学习实战路线图</h1>
+    <p>理论 → 框架 → 实战 | 8 周进阶计划 | 3 个完整项目产出</p>
+  </div>
+
+  <!-- Three Phases -->
+  <div class="phases">
+    <div class="phase-card phase-1">
+      <div class="phase-number">1</div>
+      <h2>理论吃透 (3-4周)</h2>
+      <div class="phase-item"><strong>前馈网络 & 反向传播</strong> <span class="tag">基础</span></div>
+      <div class="phase-item"><strong>正则化 & BN & Dropout</strong> <span class="tag">核心</span></div>
+      <div class="phase-item"><strong>CNN (图像)</strong></div>
+      <div class="phase-item"><strong>RNN / LSTM / GRU</strong></div>
+      <div class="phase-item"><strong>Transformer ★★★</strong> <span class="tag">重点</span></div>
+    </div>
+
+    <div class="phase-card phase-2">
+      <div class="phase-number">2</div>
+      <h2>PyTorch 精通 (2-3周)</h2>
+      <div class="phase-item"><strong>Tensor 操作 & Autograd</strong></div>
+      <div class="phase-item"><strong>nn.Module & DataLoader</strong></div>
+      <div class="phase-item"><strong>自定义训练循环</strong> <span class="tag">关键</span></div>
+      <div class="phase-item"><strong>学习率调度 & 优化器</strong></div>
+      <div class="phase-item"><strong>DDP 分布式训练</strong> <span class="tag">进阶</span></div>
+    </div>
+
+    <div class="phase-card phase-3">
+      <div class="phase-number">3</div>
+      <h2>实战产出 (2-3周)</h2>
+      <div class="phase-item"><strong>项目1: CNN 图像分类</strong></div>
+      <div class="phase-item"><strong>项目2: LSTM 情感分析</strong></div>
+      <div class="phase-item"><strong>项目3: Transformer ★</strong></div>
+      <div class="phase-item"><strong>GitHub 仓库 & README</strong></div>
+      <div class="phase-item"><strong>代码审查 & 优化</strong></div>
+    </div>
+  </div>
+
+  <!-- Knowledge Tree -->
+  <h2 class="section-title">知识体系</h2>
+  <div class="knowledge-grid">
+    <div class="knowledge-card">
+      <h3><span class="dot dot-blue"></span> 深度学习基础</h3>
+      <ul>
+        <li>线性回归 → Logistic 回归 → 前馈网络 (MLP)</li>
+        <li>反向传播: 链式法则，计算图，自动求导</li>
+        <li>激活函数: ReLU / GELU / Swish 及其梯度特性</li>
+        <li>损失函数: MSE / CrossEntropy / NLL</li>
+      </ul>
+    </div>
+
+    <div class="knowledge-card">
+      <h3><span class="dot dot-purple"></span> 训练技巧 & 正则化</h3>
+      <ul>
+        <li>Batch Normalization: 内部协变量偏移</li>
+        <li>Dropout: 集成学习的近似</li>
+        <li>L1/L2 正则化: 稀疏性 vs 权重衰减</li>
+        <li>Data Augmentation: 数据增强的正则化效果</li>
+      </ul>
+    </div>
+
+    <div class="knowledge-card">
+      <h3><span class="dot dot-pink"></span> 卷积神经网络</h3>
+      <ul>
+        <li>Conv2d: 局部感受野, 参数共享, 平移不变性</li>
+        <li>Pooling: MaxPool / AvgPool / Adaptive Pool</li>
+        <li>经典架构: VGG → ResNet → EfficientNet</li>
+        <li>残差连接: 梯度高速公路</li>
+      </ul>
+    </div>
+
+    <div class="knowledge-card">
+      <h3><span class="dot dot-green"></span> 循环神经网络</h3>
+      <ul>
+        <li>RNN: 时序建模, BPTT, 梯度消失</li>
+        <li>LSTM: 门控机制 (遗忘门/输入门/输出门)</li>
+        <li>GRU: 简化的门控, 参数量更少</li>
+        <li>双向 RNN: 同时利用上下文信息</li>
+      </ul>
+    </div>
+
+    <div class="knowledge-card">
+      <h3><span class="dot dot-orange"></span> Transformer 架构</h3>
+      <ul>
+        <li>Self-Attention: 全局依赖捕捉</li>
+        <li>Multi-Head: 多子空间并行注意力</li>
+        <li>Positional Encoding: sin/cos vs 可学习</li>
+        <li>LayerNorm → 适用于变长序列的归一化</li>
+        <li>残差连接 + FFN: 深层网络的稳定性</li>
+      </ul>
+    </div>
+
+    <div class="knowledge-card">
+      <h3><span class="dot dot-blue"></span> 优化与工程</h3>
+      <ul>
+        <li>SGD / Adam / AdamW: 优化器原理与选择</li>
+        <li>学习率调度: Step / Cosine / Noam / Warmup</li>
+        <li>梯度裁剪: 防止梯度爆炸</li>
+        <li>混合精度训练 (AMP)</li>
+        <li>DDP: 分布式数据并行</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <h2 class="section-title">三个实战项目</h2>
+  <div class="projects">
+    <div class="project-card">
+      <div class="emoji">🖼️</div>
+      <h3>项目一: CNN 图像分类</h3>
+      <p>CIFAR-10 (10类彩色图)，从零实现 CNN + ResNet，覆盖 Conv2d / BN / Dropout</p>
+      <div class="badges">
+        <span class="badge highlight">CNN</span>
+        <span class="badge">ResNet</span>
+        <span class="badge">BN</span>
+        <span class="badge">Dropout</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="emoji">💬</div>
+      <h3>项目二: LSTM 情感分析</h3>
+      <p>IMDB 电影评论二分类，手写 LSTM Cell，支持 LSTM/GRU/双向/PackPad</p>
+      <div class="badges">
+        <span class="badge highlight">LSTM</span>
+        <span class="badge">GRU</span>
+        <span class="badge">Embedding</span>
+        <span class="badge">PackPad</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="emoji">⚡</div>
+      <h3>项目三: Transformer</h3>
+      <p>从零实现完整 Transformer，字符级语言模型，逐组件注释数学原理</p>
+      <div class="badges">
+        <span class="badge highlight">Attention</span>
+        <span class="badge">Self-Attn</span>
+        <span class="badge">PE</span>
+        <span class="badge">LayerNorm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Timeline -->
+  <h2 class="section-title">8 周学习计划</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="week">第 1-2 周</div>
+        <h4>深度学习基础</h4>
+        <p>前馈网络 → 反向传播 → 正则化 (L1/L2/Dropout/BN)</p>
+        <p style="color:var(--text-muted);font-size:0.82em">资源: 吴恩达 DL Specialization / 李沐 d2l.ai 前5章</p>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="week">第 3-4 周</div>
+        <h4>CNN + RNN 专项</h4>
+        <p>CNN 核心概念 → ResNet → RNN → LSTM → GRU</p>
+        <p style="color:var(--text-muted);font-size:0.82em">资源: CS231n 前5讲 / CS224n 前6讲</p>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="week">第 5 周</div>
+        <h4>Transformer 精读</h4>
+        <p>"Attention Is All You Need" 逐行精读 → 理解每个公式</p>
+        <p style="color:var(--text-muted);font-size:0.82em">资源: The Annotated Transformer / 李沐论文精读</p>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="week">第 6-7 周</div>
+        <h4>PyTorch 精通 + 项目实战</h4>
+        <p>Tensor/Module/DataLoader → 自定义训练循环 → 完成 3 个项目</p>
+        <p style="color:var(--text-muted);font-size:0.82em">目标: 每个项目从零写起，理解每行代码</p>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="week">第 8 周</div>
+        <h4>进阶 & 产出</h4>
+        <p>DDP 分布式 → 代码整理 → README → GitHub 仓库</p>
+        <p style="color:var(--text-muted);font-size:0.82em">目标: 一个能直接放简历上的 GitHub 仓库</p>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+  </div>
+
+  <!-- Resources -->
+  <div class="resources">
+    <h2>推荐学习资源</h2>
+    <div class="resource-grid">
+      <div class="resource-item">
+        <a href="https://d2l.ai" target="_blank">李沐《动手学深度学习》(PyTorch版)</a>
+        <div class="note">中文友好，代码+公式+图示，入门首选</div>
+      </div>
+      <div class="resource-item">
+        <a href="http://cs231n.stanford.edu" target="_blank">Stanford CS231n (计算机视觉)</a>
+        <div class="note">Andrej Karpathy 主讲，CNN 经典课程</div>
+      </div>
+      <div class="resource-item">
+        <a href="http://web.stanford.edu/class/cs224n" target="_blank">Stanford CS224n (自然语言处理)</a>
+        <div class="note">Chris Manning 主讲，含 Transformer 章节</div>
+      </div>
+      <div class="resource-item">
+        <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a>
+        <div class="note">Transformer 原论文 — 必读</div>
+      </div>
+      <div class="resource-item">
+        <a href="http://nlp.seas.harvard.edu/annotated-transformer/" target="_blank">The Annotated Transformer</a>
+        <div class="note">哈佛 NLP 组的逐行注释实现</div>
+      </div>
+      <div class="resource-item">
+        <a href="https://pytorch.org/tutorials/" target="_blank">PyTorch 官方教程</a>
+        <div class="note">从基础到分布式训练全覆盖</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    @推文君 · 深度学习实战仓库 · deep-learning-journey
+  </div>
+
+</div>
+
+</body>
+</html>
