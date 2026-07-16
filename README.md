@@ -84,7 +84,7 @@ python train.py --mode generate --prompt "江湖"
 
 ## 作者
 
-@推文君 — 专注 AI 小说推文赛道，用深度学习提升生产效率。
+3101687165@gmail.com
 
 ---
 
